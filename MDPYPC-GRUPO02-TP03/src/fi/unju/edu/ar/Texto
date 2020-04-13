@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Texto {
+	
+public ArrayList<String> ReadArch(String nombreArchivo){
+	
+	ArrayList<String> Lineas = new ArrayList<>();
+	
+	try{
+		FileReader fr = new FileReader(nombreArchivo);
+		BufferedReader br = new BufferedReader(fr);
+		
+		String Linea ="";
+		//leemos el archivo linea por linea
+		while(Linea!=null){
+			Linea = br.readLine();
+			if(Linea==null){
+				break;
+			}
+			Lineas.add(Linea);//Aqui mostramos en pantalla o guardamos la linea en una variable
+		}
+		
+	}catch(IOException e){
+		System.out.println(e.getMessage());
+	}
+	
+	return Lineas;
+}
+
+}
