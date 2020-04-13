@@ -1,0 +1,48 @@
+import java.io.*;
+
+public class punto6 {
+	
+	public static void main(String[] args) {
+		
+		int[][] matriz = new int[10][10];
+		int[] fila = new int[10];
+	
+		try{
+			
+		    for(int i=0; i< matriz.length; i++){
+			     
+		    	fila = multiplicar(i+1);
+		    	
+		    	for(int j=0; j<matriz.length; j++){
+			    	matriz[i][j] = fila[j];
+			    }
+		    }
+		    
+		    Mostrar(matriz);
+		    
+		}catch(Exception e){}
+	}
+	
+	public static int[] multiplicar(int num){
+		
+		int[] aux=new int[10];
+		
+		for(int i=0; i<aux.length; i++){
+			aux[i]=num*(i+1);
+		}
+		return aux;
+	}
+	
+	public static void Mostrar(int[][] nuevo){
+		
+		for(int i=0; i< nuevo.length; i++){
+		     
+	    	for(int j=0; j<nuevo.length; j++){
+		    	
+	    		System.out.print(nuevo[i][j]+" ");
+		    }
+	    	System.out.println();
+	    }
+	}
+	
+}
