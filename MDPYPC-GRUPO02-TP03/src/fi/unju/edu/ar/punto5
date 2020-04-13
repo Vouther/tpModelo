@@ -1,0 +1,108 @@
+import java.util.ArrayList;
+import java.lang.*;
+import java.io.*;
+
+public class punto5 {
+
+	
+	public static void main(String[] args) {
+		
+		Texto txt = new Texto();
+		ArrayList<String> Lineas = new ArrayList();
+		ArrayList<Integer> numeros = new ArrayList();
+		
+		Lineas = txt.ReadArch("TP03Numeros.txt");
+		System.out.println("El archivo contiene las siguientes lineas:");
+		leerlineas(Lineas);
+			
+		numeros = listarnumeros(Lineas);
+		//a)Cuente la cantidad de numeros
+		System.out.println("Cantidad de numeros: "+numeros.size());
+		
+		//b)Muestre el listado de los números encontrados
+		System.out.println("Los numeros encontrados son:");
+		for(int i=0; i<numeros.size(); i++){
+			System.out.print(numeros.get(i)+" ");
+		}
+		System.out.println();
+		
+		//c)Muestre el total de la suma de dichos números
+		int suma=0;
+		for(int s=0; s<numeros.size(); s++){
+			suma += numeros.get(s);
+		}
+		System.out.println("La suma de los numeros es: "+suma);
+		
+	}
+	
+	/*
+	 * El método isDigit(char) es un método estático de la clase Character.
+	 * Es por ello que solo hará falta que lo invoquemos directamente.
+	 * El valor de retorno es un booleano. Es por ello que podemos utilizarlo en condiciones.
+	 */	
+	
+	public static ArrayList<Integer> listarnumeros(ArrayList<String> Lineas){
+		
+		ArrayList<Integer> NumAux = new ArrayList();
+		String Linea;
+		String num="";
+		boolean numero=true;
+		
+		//Comenzamos a listar los numeros
+		for(int f=0; f<Lineas.size(); f++){
+			Linea = Lineas.get(f);
+			for(int i=0; i<Linea.length(); i++){
+				
+			  char aux = Linea.charAt(i);
+			  //¿Estamos frente a un digito?
+			  
+			  if((Character.isDigit(aux)||aux=='-')&&numero){			  
+				  //Si el caracter es un digito y estamos formando un numero se concatenara...
+				  num += Character.toString(aux);
+				  //System.out.println(num);PRUEBA
+				  
+				  //+++++++++++++ ANALISAMOS CON EL SIGUIENTE CARACTER +++++++++++++++++
+				  if((i+1)<Linea.length()){
+					  if(Linea.charAt(i+1)==','||(Linea.charAt(i+1)==' ')){
+						  //Si nos encontramos una separacion y es un numero se guarda en lista
+						  //System.out.println("guardar numero");PRUEBA
+						  NumAux.add(Integer.parseInt(num));
+						  num = "";//CORRECCION
+					  }
+					  else{
+						  //Si no es un digito limpiamos la varaible num
+						  if(!Character.isDigit(Linea.charAt(i+1))){
+							  num="";
+							  //System.out.println("hay letras");PRUEBA
+						  } 
+					  }
+				  }
+				  //Si nos encontramos con el ultimo caracter de la linea 
+				  else{
+					      //System.out.println("guardar numero");PRUEBA
+					      NumAux.add(Integer.parseInt(num));
+					      num = "";//CORRECCION			  
+				  }//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			  }
+			  else{//Si hay una separacion supondremos que los siguientes caracteres formaran un numero
+				  if((Linea.charAt(i)==','||Linea.charAt(i)==' ')){
+					  numero = true;
+				  }
+				  else
+				  //En todo caso que no formaremos un numero...
+				  numero = false;
+			  }
+		   }
+		}
+
+		return NumAux;
+	}
+	
+	public static void leerlineas(ArrayList<String> Lineas){
+		String Linea;
+		
+		for(int i=0; i<Lineas.size(); i++){
+			Linea = Lineas.get(i);
+			System.out.println(Linea);
+		}
+	}
